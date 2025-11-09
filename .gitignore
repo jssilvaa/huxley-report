@@ -21,3 +21,4 @@
 *.7z
 *.swp
 *.synctex(busy)
+.vscode/
