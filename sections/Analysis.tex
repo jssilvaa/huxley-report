@@ -1,0 +1,360 @@
+\section{Analysis}
+\subsection{Market Analysis}
+\subsubsection{Market Overview}
+The global messaging software market is projected to exceed USD 28 billion by 2024, driven by the ubiquity of digital communication across personal, educational, and professional contexts. Most mainstream platforms (e.g., WhatsApp, Slack, Discord) rely on centralized cloud infrastructures, creating recurring concerns about data privacy, user ownership, and regulatory access to personal information. 
+
+\par 
+A clear opportunity, therefore, exists for lightweight, privacy-focused, and self-hosted solutions. A Raspberry Pi–based messaging hub aligns with this direction by providing local data control, energy-efficient operation, and independence from third-party cloud providers.
+
+
+\subsubsection{Target Market}
+
+\begin{itemize}
+    \item \textbf{Tech enthusiasts (DIY) \& self-hosters:} Advanced tech users, who like to tinker and have their own home-made setups.
+
+    \item \textbf{Developing/Remote Areas:} Areas with limited or unstable connection to the wider Internet; local servers provide resilience.
+
+    \item \textbf{Independency and Privacy Advocates:} Individuals who are really serious about being independent from tech giants and want as much ownership and control as possible with their tech.
+
+    \item \textbf{Small organizations:} Organizations that need secure and private chat but have no or low budget for cloud tools, and want sustainable and predictable setup and running costs.
+\end{itemize}
+
+\subsubsection{Competitive Analysis and Ecosystem}
+
+To position the Huxley messaging hub within the existing ecosystem, we analyze competing solutions across three categories:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{0.18\textwidth}p{0.28\textwidth}p{0.42\textwidth}}
+\hline
+\textbf{Category} & \textbf{Examples} & \textbf{Limitation for Target Use Case} \\
+\hline
+\textbf{Cloud-hosted} & WhatsApp, Slack, Discord & Requires continuous internet; data on third-party servers; recurring subscription costs; privacy concerns \\
+\hline
+\textbf{Self-hosted frameworks} & Matrix/Synapse, Rocket.Chat, Mattermost & High resource requirements (2GB+ RAM); complex multi-step setup; external database dependencies; over-engineered for local-only use \\
+\hline
+\textbf{Peer-to-peer} & Briar, Tox & No centralized persistence; requires all peers online; limited admin control for organizations \\
+\hline
+\end{tabular}
+\caption{Competitive landscape showing gaps addressed by Huxley.}
+\end{table}
+
+\textbf{Identified Gap:} No existing solution optimally serves small organizations (10-50 users) requiring: (1) local-only operation without internet dependency, (2) lightweight resource footprint compatible with sub-\$100 hardware, (3) simple deployment by non-technical users   , and (4) centralized message persistence with user management.
+
+Huxley addresses this gap by optimizing specifically for local deployment scenarios where cloud solutions are unnecessary and existing self-hosted frameworks are over-provisioned.
+
+\subsubsection{Cost and Pricing Model}
+\par The proposed messaging hub follows a Free and Open Source Software (FOSS) model to promote transparency, user trust, and long-term sustainability. By making the software freely available, the project aligns with open-source principles of collaboration and verifiability. This approach allows users to review, modify, and redistribute the code, ensuring that system security and reliability can be validated by the community rather than relying on proprietary systems.
+
+\par As the software will be completely free of charge, the only mandatory cost for users is the hardware required to operate the system. The messaging hub is designed to run efficiently on a Raspberry Pi 4, which provides an affordable and energy-efficient platform for small-scale, self-hosted deployments.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|}
+        \hline
+        \textbf{Component} & \textbf{Cost} \\
+        \hline
+        Raspberry Pi 4 (1-8 GB RAM)  &  45 - 100 \$ \\ 
+        \hline
+        Power supply and case & 15 - 35 \$ \\
+        \hline
+        Storage* (microSD or SSD) & 10 - 50 \$ \\
+        \hline
+        Total Estimated Hardware Cost & 70 - 195 \$ \\
+        \hline
+    \end{tabular}
+    \caption{Estimated hardware cost for a self-hosted deployment. \\ *Depends on the amount.}
+    \label{tab:placeholder}
+\end{table}
+
+\subsubsection*{Sustainability and Revenue Options} 
+
+\par Although the software itself will be distributed free of charge, several optional revenue and sustainability mechanisms can support continued development and outreach:
+
+\begin{itemize}
+    \item \textbf{Pre-configured Hardware Kits:} Offer Raspberry Pi units preloaded with the Huxley messaging hub software for convenience and faster/easier setup.
+
+    \item \textbf{Donations and Sponsorships:} Support from individuals or organizations that benefit from or endorse the project’s objectives.
+
+    \item \textbf{Technical Support and Customization Services:} Provide paid assistance, installation help, or feature customization for schools, Non-Profit Organizations, and small businesses that lack in-house IT expertise.
+\end{itemize}
+
+\textbf{Operational Cost Comparison (25-user organization, 3-year period)}
+
+For comparative analysis, we assume a small organization with 25 users requiring persistent messaging capabilities.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrr}
+\hline
+\textbf{Solution} & \textbf{Year 1} & \textbf{Years 2-3} & \textbf{Total} \\
+\hline
+Slack (Pro tier)\textsuperscript{1} & \$2,625 & \$5,250 & \$7,875 \\
+Microsoft Teams (M365 Basic)\textsuperscript{2} & \$1,800 & \$3,600 & \$5,400 \\
+Self-hosted (VPS 2GB)\textsuperscript{3} & \$120 & \$240 & \$360 \\
+Huxley (Raspberry Pi) & \$80 & \$20 & \$100 \\
+\hline
+\end{tabular}
+\caption{Three-year TCO comparison for 25-user deployment.}
+\end{table}
+
+\textit{Notes:}
+\begin{enumerate}
+    \item Slack Pro: \$8.75/user/month × 25 users = \$218.75/month (2024 pricing).
+    \item Microsoft 365 Basic: \$6/user/month × 25 users = \$150/month (2024 pricing).
+    \item VPS pricing based on DigitalOcean/Linode 2GB droplet (\$10/month).
+    \item Huxley operational cost: comes from the Raspberry Pi 4 power consumption, rounded to \$20 for contingencies.
+\end{enumerate}
+
+\bigskip
+
+\subsection{Hardware Architecture}
+\par The hardware architecture defines the physical structure of the system — the components housed within the Raspberry Pi, their interconnections, and how they interface with the external network. The proposed setup is intentionally minimal, relying on a single embedded platform to ensure simplicity, low cost, and ease of deployment (see Fig.\ref{fig:HW arch}).
+\\
+The system consists of the Raspberry Pi-4 server; clients communicate with the Pi, and the server drives the LED to reflect the current server state. No cloud components are required.
+
+\begin{itemize}
+
+    \item \textbf{Server (Raspberry Pi)}: The main server handles clients, mediates client database-access, encrypts and routes messages, and locally stores the database.
+
+    \begin{itemize}
+        \item \textbf{Core components:} ARM CPU for server operations, integrated Wi-Fi and Ethernet modules for LAN communication.
+
+        \item \textbf{Non-volatile Storage (microSD):} Hosts the operating system and SQLite database.
+
+        \item \textbf{GPIO:} General Purpose Input/Output for external peripheral interfacing; used to drive the RGB LED, which displays system status.
+
+        \item \textbf{Power Supply:} Stable and reliable power supply, with optional backup power source for blackout scenarios, such as using a UPS (Uninterruptible Power Supply).
+    \end{itemize}
+
+    \item \textbf{External context (as shown in Fig.\ref{fig:HW arch})}: Client devices (phone/laptop) can connect over a local network via a router/access point or switch; Internet access is optional and not required for operation.
+
+\end{itemize}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=.65\linewidth]{images/Hardware Architecture.drawio.png}
+    \caption{Hardware Architecture}
+    \label{fig:HW arch}
+\end{figure}
+
+\subsection{Software Architecture}
+The software architecture shown in Fig.\ref{fig:SW arch} illustrates the system structure and interactions. It comprises the system’s main modules and components, as well as their interactions with each other. 
+\\
+
+% Software explanations here
+\noindent We divide the software architecture into three distinctive layers: 
+\begin{itemize}
+    \item \textbf{Application Layer:} Contains the system’s top-level functionalities and user interaction mechanisms.
+    \begin{itemize}
+        \item \textbf{GUI:} Provides a user-friendly interface for user authentication and message exchange.
+    \end{itemize}
+
+    \item \textbf{Middleware Layer:} The middleware layer bridges application logic with system-level interfaces, providing concurrency, communication, and data management services.
+        \begin{itemize}
+        \item \textbf{SQLite:} SQLite provides a fast and lightweight SQL (Structured Query Language) database engine.
+        \item \textbf{Libsodium:} Libsodium provides authenticated encryption and message integrity verification.
+        \item \textbf{PThreads (POSIX Threads):} Provides concurrency support, enabling multi-client handling and background operations in a lightweight, deterministic manner.
+        \item \textbf{POSIX/Berkeley Sockets:} Handles socket-based communication over the local network.
+
+    \end{itemize}
+
+    \item \textbf{Linux OS Layer:} This layer handles the interface between hardware and software, including all system drivers.
+    \begin{itemize}
+        \item \textbf{Network Driver:} Supports Ethernet and Wi-Fi interfaces for LAN connectivity.
+        \item \textbf{Buildroot Linux Kernel:} Buildroot-generated image comprising kernel, root filesystem, and networking stack.
+        \item \textbf{LED Driver:} Controls the RGB indicator to reflect system states (idle, processing, error).
+
+    \end{itemize}
+\end{itemize}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.25\linewidth]{images/SW arch.drawio.png}
+    \caption{Software Architecture}
+    \label{fig:SW arch}
+\end{figure}
+
+% Use cases diagram
+\subsubsection{Use-Cases Diagram}
+We present a UML-based use-case diagram that shows information on the relationships between the system and external actors. 
+
+The user has the option to log in/register when first connecting with the system; once authenticated, the user may message other users. The exchanged messages in the server are stored in the server storage.
+%\textcolor{blue}{and in the client cache}.
+
+\par 
+Fig.~\ref{fig:use_case} presents the main interactions between the user and the system, emphasizing authentication, messaging, and data retrieval functionality.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\linewidth]{images/Use Case Diagram.drawio.png}
+    \caption{Use Case Diagram}
+    \label{fig:use_case}
+\end{figure}
+
+% Sequence diagram: login and registration & messaging
+\subsubsection{Sequence Diagram}
+Sequence diagrams are a type of interaction diagram that illustrate how operations are executed within a system and in what order.
+
+These diagrams depict interactions across time, with the vertical axis marking the passage of time. 
+
+%% Login and Registration description
+\subsubsection*{Registration flow}
+The registration and login sequences (Fig.\ref{fig:sequence_diagram_login}) describe how the system handles user authentication.
+
+\begin{itemize}
+    \item \textbf{Registration:}  
+    The client submits a registration request containing credentials. The server verifies username availability by querying the database.  
+    \begin{itemize}
+        \item If the username is available, the server stores the new user record and returns a confirmation to the client.  
+        \item If the username already exists, the server returns an error message.  
+    \end{itemize}
+
+    \item \textbf{Login:}  
+    The client submits a login request. The server retrieves the stored hash from the database and compares it to the provided credentials.  
+    \begin{itemize}
+        \item If the credentials match, authentication succeeds and a user session is established.  
+        \item Otherwise, an authentication failure is reported.  
+    \end{itemize}
+\end{itemize}
+
+\noindent
+In both cases, the LED indicator provides visual feedback on operation status: green for success, red for failure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.9\linewidth]{images/analysis_sequenceDiagram_loginRegister.png}
+    \caption{Registration and login sequence showing user authentication flow.}
+    \label{fig:sequence_diagram_login}
+\end{figure}
+
+%% Message Description
+\subsubsection*{Message flow}
+The message flow sequence (Fig.\ref{fig:sequence_diagram_message}) models the exchange of messages between two clients through the server.
+
+\begin{itemize}
+    \item The sender issues a \textit{Send Message} request to the server.  
+    \item The server encrypts the message and checks the recipient’s status.  
+    \begin{itemize}
+        \item If the recipient is \textbf{online}, the message is routed directly to the recipient client.  
+        \item If the recipient is \textbf{offline}, the server stores the message in the database for later retrieval.  
+    \end{itemize}
+    \item The server sends an acknowledgment to the sender indicating success or failure.  
+    \item Upon reconnection, an offline recipient receives all queued messages.  
+\end{itemize}
+
+\noindent
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/analysis_sequenceDiagram_messaging.png}
+    \caption{Message exchange sequence between sender, server, and recipient.}
+    \label{fig:sequence_diagram_message}
+\end{figure}
+
+\subsubsection{LED State Machine Diagram}
+\par
+Figure~\ref{fig:analysis_stateMachine} presents the finite state machine (FSM) that governs the system's operational flow and LED indications. Each state corresponds to a distinct server condition, providing real-time visual feedback of system status.
+
+\par
+The system powers on in the \textbf{Reset/Boot} state and transitions to \textbf{Idle/Standby} once initialization completes. When a client connects, the server enters the \textbf{Active} state, with temporary transitions to \textbf{Processing} while handling messages. Any unexpected error or timeout event leads to the \textbf{Error} state, which persists until manual or automatic reset.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/FSM Analysis.drawio.png}
+    \caption{LED state machine showing operational status transitions.}
+    \label{fig:analysis_stateMachine}
+\end{figure}
+
+\subsubsection{Events Table}
+In order to identify all actors and their possible relations with the system and its components, as well as the necessary relations between class objects, we drafted the following events table. It lists the events the system must listen to, as well as their timing (i.e. whether the task requires synchronous - caller waits for completion; or asynchronous timing - task handled in the background). 
+
+Table \ref{tab:events} summarizes the primary runtime events, their corresponding system responses, and timing classification.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{5.5cm}p{6.5cm}>{\centering\arraybackslash}p{3cm}}
+\hline
+\textbf{Event} & \textbf{System Response} & \textbf{Timing} \\
+\hline
+\textbf{Client connects (TCP handshake)} & Server accepts the connection and allocates a new client handler & Sync \\
+\hline
+\textbf{Client disconnects} & Server detects disconnection or timeout, releases resources, and updates user status & Async \\
+\hline
+\textbf{User registration} & Authentication service validates username availability, stores new record in database, and reports success/failure to client; LED indicates result & Sync \\
+\hline
+\textbf{User login} & Authentication service verifies credentials in the database and establishes a user session; LED indicates result & Sync \\
+\hline
+\textbf{User logout} & Session manager closes the active session and terminates the network connection & Sync \\
+\hline
+\textbf{Send message} & Message router encrypts and attempts delivery; if recipient offline, message is queued in database for later delivery & Mixed (accept Sync, delivery Async) \\
+\hline
+\textbf{Receive message} & Server delivers message to connected client or releases queued messages upon reconnection & Async \\
+\hline
+\textbf{List online users} & Server compiles and returns list of currently active users & Sync \\
+\hline
+\textbf{Session keepalive} \textbf{/ timeout check} & Background process monitors idle sessions and removes inactive users & Async (scheduled) \\
+\hline
+\textbf{Queue flush on reconnect} & Message router forwards any stored messages to the user after successful login & Async \\
+\hline
+\textbf{LED state update} & Status controller updates RGB indicator to reflect operational state (processing / operational / error) & Async (event-driven) \\
+\hline
+\textbf{Encryption or delivery failure} & System reports error to sender, logs the event, and signals red LED pulse & Sync (error path) \\
+\hline
+\end{tabular}
+\caption{System events, functional responses, and synchronicity classification.}
+\label{tab:events}
+\end{table}
+
+\subsubsection{Risk Management}
+
+During the Analysis phase, several areas of requirement ambiguity were identified that pose risks to subsequent design and implementation phases. Table~\ref{tab:requirements_risks} documents these risks and proposed mitigation strategies.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.2\textwidth}p{0.35\textwidth}p{0.35\textwidth}}
+\hline
+\textbf{Risk Area} & \textbf{Ambiguity} & \textbf{Mitigation Strategy} \\
+\hline
+\textbf{Encryption Scope} & Requirement states "end-to-end encryption" but key exchange mechanism undefined. Client-server or peer-to-peer model unclear. & \textbf{Clarification:} System will use server-mediated encryption with libsodium \texttt{secretbox}. Keys derived from user passwords. True E2E (client-to-client) deferred to future version. \\
+\hline
+\textbf{Performance Bounds} & "Minimal latency" and "multiple concurrent users" lack quantification. No target user count specified. & \textbf{Clarification:} System must support minimum 25 concurrent users with acceptable interactive response times ($<$1 second for user-initiated operations). \\
+\hline
+\textbf{Network Scope} & "Local network" underspecified. LAN-only or WAN capability? Discovery mechanism (static IP vs. mDNS)? & \textbf{Clarification:} System operates on single LAN segment via static IP configuration. Internet connectivity not required, and WAN access is out of scope. \\
+\hline
+\textbf{Data Durability} & Message persistence guarantees undefined. Must messages survive system crashes? & \textbf{Clarification:} Messages must persist after sender receives acknowledgment. System will use SQLite WAL mode with appropriate synchronization. \\
+\hline
+\end{tabular}
+\caption{Requirements ambiguity risks and mitigation through clarification.}
+\label{tab:requirements_risks}
+\end{table}
+
+% Personal notes:
+% With WAL Mode, instead of writing directly to the database file, changes are logged in a separate WAL file ( *. db-wal ). This allows: Concurrent reads and writes, improving efficiency. Faster transactions, as multiple processes can read data while writes happen in the background.
+% In Libsodium, secretbox is a high-level authenticated symmetric encryption API. It allows you to encrypt and authenticate messages using a shared secret key.
+
+\textbf{Additional Implementation Risks}
+
+Beyond requirements clarity, standard implementation risks were assessed:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\hline
+\textbf{Risk} & \textbf{Probability} & \textbf{Impact} & \textbf{Mitigation} \\
+\hline
+Hardware failure & Low & High & Maintain backup Pi, regular backups \\
+Security vulnerability & Medium & High & Code review, encryption validation \\
+Timeline delays & High & Medium & Incremental milestones, buffer time \\
+Integration challenges & Medium & Medium & Interface testing, modular design \\
+\hline
+\end{tabular}
+\caption{Standard implementation risk assessment.}
+\end{table}
+
+The requirements ambiguity risks (Table~\ref{tab:requirements_risks}) must be resolved before proceeding to Design phase to ensure architectural decisions can be made with confidence.
+\newpage

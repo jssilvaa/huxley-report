@@ -1,0 +1,13 @@
+Function: EncryptMessage(plaintext: string) -> blob
+Pre:  masterKey loaded in CryptoEngine
+Post: Returns encrypted blob (nonce + ciphertext + MAC)
+Spec: Applies XSalsa20-Poly1305 authenticated encryption
+
+Algorithm:
+  nonce = randomBytes(crypto_secretbox_NONCEBYTES)  // 24 bytes
+  ciphertext = crypto_secretbox_easy(plaintext, nonce, masterKey)
+  
+  // Prepend nonce (required for decryption)
+  result = nonce || ciphertext
+
+  return result

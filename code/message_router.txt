@@ -1,0 +1,14 @@
+Class: MessageRouter  
+Invariant: activeClients map reflects all currently connected authenticated users  
+Synchronization: activeClients protected by clientsMutex; all accesses must hold lock
+
+Function: registerClient(username: string, handler: ClientConnection*)  
+Pre: username not already in activeClients  
+Post: activeClients[username] = handler  
+Spec: Acquires clientsMutex to ensure atomic insertion.
+
+Function: routeMessage(sender: string, recipient: string, message: string) → bool  
+Pre: sender authenticated; recipient may or may not be connected  
+Post: if recipient connected → message delivered immediately, return true  
+      else return false (caller must queue in database)  
+Spec: Acquires clientsMutex during lookup to avoid races with concurrent disconnects.

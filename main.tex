@@ -1,0 +1,402 @@
+\documentclass[12pt,a4paper]{article}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{pgfgantt}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{amssymb}
+\usepackage[inkscapelatex=false]{svg}
+\usepackage{fvextra}
+\usepackage{csquotes} % move this down
+
+% biblatex
+\usepackage[sorting=none]{biblatex}
+\addbibresource{biblio.bib}
+
+% tikz
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=gray!20]
+\tikzstyle{process} = [rectangle, minimum width=3.5cm, minimum height=1cm, text centered, draw=black, fill=blue!20]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+% pages margins and dimensions
+\usepackage{geometry}
+\geometry{
+     a4paper,
+     top=15mm,
+     bottom=15mm,
+     left=25mm,
+     right=25mm,
+}
+
+
+% necessary to make use of images, subimages
+\usepackage{graphicx}
+\graphicspath{ {./imagens/} }
+\usepackage{subcaption}
+\usepackage[justification=centering]{caption}
+
+% paragraph indentation => \par, \noindent
+\usepackage{indentfirst}
+\setlength{\parindent}{1.5em}
+
+% justifying
+\usepackage{ragged2e}
+
+% change section letter size
+\usepackage{titlesec}
+\titleformat*{\section}{\Large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+
+% tables customization
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage{makecell}
+\setlength{\arrayrulewidth}{0.2mm} %line width
+\setlength{\tabcolsep}{2pt} % horizontal margins
+\renewcommand{\arraystretch}{1.1} % row height
+
+% to use SI units
+\usepackage{siunitx}
+
+\usepackage{caption}
+\usepackage{minted}
+
+\usepackage{listings}
+% Configure C++ language settings
+% \lstset{
+%     language=C++,
+%     basicstyle=\small\ttfamily, % Set font style
+%     keywordstyle=\color{blue},   % Highlight keywords
+%     stringstyle=\color{red},     % Highlight strings
+%     commentstyle=\color{green},  % Highlight comments
+%     numbers=left,                % Add line numbers
+%     stepnumber=1,                % Increment line numbers by 1
+%     numberstyle=\tiny\color{gray}% Style for line numbers
+% }
+
+% % --- JSON Language Definition ---
+% \lstdefinelanguage{json}{
+%     basicstyle=\normalfont\ttfamily\small,
+%     numbers=left,
+%     numberstyle=\tiny\color{gray},
+%     frame=single,
+%     rulecolor=\color{black},
+%     showspaces=false,
+%     showtabs=false,
+%     breaklines=true,
+%     breakatwhitespace=true,
+%     commentstyle=\color{gray},
+%     stringstyle=\color{red!70!black},
+%     literate=
+%      *{:}{{\textbf{:}}}{1}
+%       *{,}{{\textbf{,}}}{1}
+% }
+
+% --- JSON language definition for listings ---
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily\footnotesize,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    backgroundcolor=\color{backcolour},
+    literate=
+     *{0}{{{\color{orange}0}}}{1}
+      {1}{{{\color{orange}1}}}{1}
+      {2}{{{\color{orange}2}}}{1}
+      {3}{{{\color{orange}3}}}{1}
+      {4}{{{\color{orange}4}}}{1}
+      {5}{{{\color{orange}5}}}{1}
+      {6}{{{\color{orange}6}}}{1}
+      {7}{{{\color{orange}7}}}{1}
+      {8}{{{\color{orange}8}}}{1}
+      {9}{{{\color{orange}9}}}{1}
+      {:}{{{\color{black}{:}}}}{1}
+      {,}{{{\color{black}{,}}}}{1}
+      {"}{{{\color{purple}{"}}}}{1},
+    stringstyle=\color{codepurple},
+    morestring=[b]"
+}
+% --- Pseudo language definition for listings ---
+\lstdefinelanguage{pseudo}{
+  morekeywords={
+    Function, If, Else, For, While, Return, Break, Continue,
+    True, False, And, Or, Not, In, Pre, Post, Spec
+  },
+  sensitive=false,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{codegray}\itshape,
+  stringstyle=\color{codepurple},
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  stepnumber=1,
+  numbersep=8pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  backgroundcolor=\color{backcolour},
+  tabsize=2
+}
+
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\usepackage{graphicx}
+\usepackage{adjustbox} % para utilizar valign=c
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{darkgray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{groupblue}{rgb}{0.2, 0.4, 0.8}
+\definecolor{barblue}{rgb}{0.2, 0.4, 0.8}
+%
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{editorGray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{editorOcher}{rgb}{1, 0.5, 0} % #FF7F00 -> rgb(239, 169, 0)
+\definecolor{editorGreen}{rgb}{0, 0.5, 0} % #007C00 -> rgb(0, 124, 0)
+\definecolor{orange}{rgb}{1,0.45,0.13}		
+\definecolor{olive}{rgb}{0.17,0.59,0.20}
+\definecolor{brown}{rgb}{0.69,0.31,0.31}
+\definecolor{purple}{rgb}{0.38,0.18,0.81}
+\definecolor{lightblue}{rgb}{0.1,0.57,0.7}
+\definecolor{lightred}{rgb}{1,0.4,0.5}
+\usepackage{upquote}
+
+% CSS
+\lstdefinelanguage{CSS}{
+  keywords={color,background-image:,margin,padding,font,weight,display,position,top,left,right,bottom,list,style,border,size,white,space,min,width, transition:, transform:, transition-property, transition-duration, transition-timing-function},	
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={:},
+  alsodigit={-}
+}
+
+% JavaScript
+\lstdefinelanguage{JavaScript}{
+  morekeywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, const, get, on, use, promises, await, let, console},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morestring=[b]",
+  morestring=[b]'
+}
+
+\lstdefinelanguage{HTML5}{
+  language=html,
+  sensitive=true,	
+  alsoletter={<>=-},	
+  morecomment=[s]{<!-}{-->},
+  tag=[s],
+  otherkeywords={
+  % General
+  >,
+  % Standard tags
+	<!DOCTYPE,
+  </html, <html, <head, <title, </title, <style, </style, <link, </head, <meta, />,
+	% body
+	</body, <body,
+	% Divs
+	</div, <div, </div>, 
+	% Paragraphs
+	</p, <p, </p>,
+	% scripts
+	</script, <script,
+  % More tags...
+  <canvas, /canvas>, <svg, <rect, <animateTransform, </rect>, </svg>, <video, <source, <iframe, </iframe>, </video>, <image, </image>, <header, </header, <article, </article
+  },
+  ndkeywords={
+  % General
+  =,
+  % HTML attributes
+  charset=, src=, id=, width=, height=, style=, type=, rel=, href=,
+  % SVG attributes
+  fill=, attributeName=, begin=, dur=, from=, to=, poster=, controls=, x=, y=, repeatCount=, xlink:href=,
+  % properties
+  margin:, padding:, background-image:, border:, top:, left:, position:, width:, height:, margin-top:, margin-bottom:, font-size:, line-height:,
+	% CSS3 properties
+  transform:, -moz-transform:, -webkit-transform:,
+  animation:, -webkit-animation:,
+  transition:,  transition-duration:, transition-property:, transition-timing-function:,
+  }
+}
+
+\lstdefinestyle{htmlcssjs} {%
+  % General design
+%  backgroundcolor=\color{editorGray},
+  basicstyle={\footnotesize\ttfamily},   
+  frame=b,
+  % line-numbers
+  xleftmargin={0.75cm},
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true,	
+  % Code design
+  identifierstyle=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{editorGreen}\bfseries,
+  stringstyle=\color{editorOcher}\ttfamily,
+  commentstyle=\color{brown}\ttfamily,
+  % Code
+  language=HTML5,
+  alsolanguage=JavaScript,
+  alsodigit={.:;},	
+  tabsize=2,
+  showtabs=false,
+  showspaces=false,
+  showstringspaces=false,
+  extendedchars=true,
+  breaklines=true,
+  % German umlauts
+  literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+}
+%
+
+\renewcommand\lstlistingname{Listing}
+% Configurando layout para mostrar codigos C++
+\usepackage{listings}
+\lstset{
+  language=C,
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{blue},
+  stringstyle=\color{green},
+  commentstyle=\color{red},
+  extendedchars=true,
+  showspaces=false,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  backgroundcolor=\color{green!3},
+  breakautoindent=true,
+  captionpos=b,
+  xleftmargin=0pt,
+}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+\begin{document}    
+
+
+\begin{titlepage}
+
+    \begin{figure}[t]
+        \vspace*{1.5cm}
+        \centering
+        \includegraphics[scale=0.21]{images/eeum_esrg_2.png}
+    \end{figure}
+
+    \vspace*{0.3cm}
+    
+    \begin{center}
+        \LARGE
+            \textbf{University of Minho}\\
+        \Large
+            School of Engineering
+        
+    \vspace*{2cm}
+    
+        Masters in Industrial Electronics Engineering and Computers
+
+    \vspace*{.2cm}
+    
+        \large\textbf{Embedded Systems}
+    
+     \vspace*{.75cm}
+     
+            \rule{\textwidth}{1pt}
+            \begin{center}
+                \LARGE\textbf{Huxley Messaging Hub }\\  
+                \Large Project Report
+            \end{center}
+            \rule{\textwidth}{1pt}
+    \Large 
+  
+    \vspace*{3.5cm}
+    \end{center}
+
+    \begin{minipage}[t]{0.48\textwidth} % [t] aligns to the top, 48% width
+        \centering
+        \textbf{Group 10} \\
+        José Silva PG60221 \\
+        Vasco Figueiredo PG60220
+        \end{minipage}%
+    \hfill % 
+    %
+    % Right side
+    \begin{minipage}[t]{0.48\textwidth} % 48% width
+        \centering
+        \textbf{Project supervised by} \\
+        Professor Adriano Tavares, PhD
+    \end{minipage}
+ 
+\end{titlepage}
+
+
+% //-----Table of Contents------//
+\tableofcontents
+
+% //-----Structure------//
+%\include{sections/Introduction}
+%\include{sections/Project Plan}
+%\include{sections/Analysis} 
+\include{sections/Design}
+%\include{sections/Implementation}
+%\include{sections/Verification}
+
+\end{document}

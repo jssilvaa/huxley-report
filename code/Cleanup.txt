@@ -1,0 +1,9 @@
+function CleanupClient(fd: int, localClients: Map, router: MessageRouter):
+    state := localClients[fd]
+    if state.username != "":
+        // Ensure consistent unregister; MessageRouter holds its own clientsMutex
+        router.UnregisterClient(state.username)   // acquires clientsMutex internally
+        db.LogActivity("User logged out: " + state.username)
+    epoll.Remove(fd)
+    Socket.Close(fd)
+    delete localClients[fd]

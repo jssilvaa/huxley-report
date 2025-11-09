@@ -1,0 +1,4 @@
+Function: FindUserByUsername(username: string) → User | NULL  
+Pre:  database open, username provided  
+Post: returns matching User object or NULL if not found  
+Spec: Executes SQL via prepared statement with bound parameters; immune to SQL injection.

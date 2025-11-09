@@ -1,0 +1,4 @@
+Function: Database::Database(filename: string)  
+Pre:  valid SQLite filename  
+Post: opens database and enables Write-Ahead Logging (WAL) mode  
+Spec: Configures PRAGMA journal_mode=WAL and synchronous=NORMAL

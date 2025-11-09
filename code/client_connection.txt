@@ -1,0 +1,4 @@
+Function: ClientConnection::run()  
+Pre:  socketFd valid and connected  
+Post: processes client requests until disconnect; unregisters client on exit  
+Spec: Repeatedly reads framed JSON messages from socket, dispatches commands to AuthManager and MessageRouter, and returns responses. On termination, removes user from activeClients map.

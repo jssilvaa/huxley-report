@@ -1,0 +1,4 @@
+Function: HashPassword(password: bytes) → string  
+Pre:  password is non-empty  
+Post: returns Argon2id encoded hash string with embedded salt & parameters  
+Spec: Generates a 128-bit random salt, applies memory-hard Argon2id with chosen CPU/memory costs, encodes result into standard $argon2id$ string.

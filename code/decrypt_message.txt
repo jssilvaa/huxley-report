@@ -1,0 +1,16 @@
+Function: DecryptMessage(encrypted: blob) -> string
+Pre:  encrypted contains valid nonce + ciphertext
+Post: Returns plaintext if MAC valid, throws exception otherwise
+Spec: Verifies MAC then decrypts with XSalsa20
+
+Algorithm:
+  nonce = encrypted[0:24]
+  ciphertext = encrypted[24:end]
+  
+  // Verify MAC and decrypt
+  plaintext = crypto_secretbox_open_easy(ciphertext, nonce, masterKey)
+  
+  if (plaintext == NULL):
+    throw DecryptionFailedException("Invalid MAC or corrupted ciphertext")
+  
+  return plaintext

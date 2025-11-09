@@ -1,0 +1,4 @@
+Function: HuxleyServer::start(port: int)  
+Pre:  port available for binding  
+Post: server listening on TCP socket, worker threads spawned, ready to accept clients  
+Spec: Initializes socket, enters accept loop. For each incoming connection, assigns client socket to a handler (thread or worker pool). Ensures bounded backlog (system-level queue for pending connections).

@@ -1,0 +1,4 @@
+Function: handleMessage(...)  
+Pre: valid message received from authenticated client  
+Post: message routed to recipient (or queued), LED status updated  
+Spec: Acquires locks in defined order: first clientsMutex, then ledMutex

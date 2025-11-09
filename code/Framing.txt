@@ -1,0 +1,15 @@
+/* Message framing: every JSON message is prefixed with 4-byte unsigned length in network byte order.
+   Reader must accumulate stream until length bytes available, then parse JSON.
+*/
+function ReadFramedJSON(fd: int, buffer: ByteBuffer) -> JSON | INCOMPLETE:
+    if buffer.length < 4: attempt to read(4 - buffer.length) else return INCOMPLETE
+    length := NetworkOrderToHost(buffer.PeekUInt32())
+    if buffer.length < 4 + length:
+        return INCOMPLETE
+    payload := buffer.ReadBytes(4, length)
+    json := ParseJSON(payload)   // may THROW on malformed
+    return json
+
+// By choosing a structured message format (JSON) layered on top of length-prefixed TCP, the server no longer manipulates untyped byte streams. 
+// Instead, it consumes semantic objects (e.g., { "type": "LOGIN", ... }), which can be dispatched cleanly to subsystems. 
+// This avoids brittle ad-hoc parsing and embodies the OOD principle of separation of concerns: transport, framing, parsing, and application logic are distinct layers.
